@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #e8f5e9;
+            margin: 5px auto;
+            padding: 10px;
+            width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+        .add-container {
+            margin-top: 20px;
+        }
+        .add-container input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .add-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .add-container button:hover {
+            background-color: #388E3C;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Alunos</h2>
+    <p>Alunos da turma:</p>
+    <ul id="lista-alunos"></ul>
+    <div class="add-container">
+        <input type="text" id="novo-aluno" placeholder="Digite o nome do aluno">
+        <button onclick="adicionarAluno()">Adicionar</button>
+    </div>
+    <script>
+        const alunos = ["João", "Maria", "Pedro", "Ana"]; // array com os nomes dos alunos
+        const ul = document.getElementById("lista-alunos"); // pega a ul pelo id
+
+        // Função para renderizar a lista de alunos
+        function renderizarLista() {
+            ul.innerHTML = ""; // Limpa a lista
+            alunos.forEach((aluno, index) => {
+                const li = document.createElement("li"); // cria um elemento li
+                li.textContent = aluno; // define o texto do li como o nome do aluno
+
+                // Botão de remover
+                const botaoRemover = document.createElement("button");
+                botaoRemover.textContent = "Remover";
+                botaoRemover.onclick = () => removerAluno(index);
+
+                li.appendChild(botaoRemover); // Adiciona o botão ao li
+                ul.appendChild(li); // Adiciona o li à ul
+            });
+        }
+
+        // Função para adicionar um aluno
+        function adicionarAluno() {
+            const input = document.getElementById("novo-aluno");
+            const nome = input.value.trim();
+            if (nome) {
+                if (alunos.includes(nome)) {
+                    alert("Este nome já está na lista.");
+                } else {
+                    alunos.push(nome); // Adiciona o nome ao array
+                    input.value = ""; // Limpa o campo de entrada
+                    renderizarLista(); // Atualiza a lista
+                }
+            } else {
+                alert("Por favor, insira um nome válido.");
+            }
+        }
+
+        // Função para remover um aluno
+        function removerAluno(index) {
+            alunos.splice(index, 1); // Remove o aluno pelo índice
+            renderizarLista(); // Atualiza a lista
+        }
+
+        // Renderiza a lista inicial
+        renderizarLista();
+    </script>
+</body>
+</html>
